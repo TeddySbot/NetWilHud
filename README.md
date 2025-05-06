@@ -1,3 +1,30 @@
+
+# Nom du projet : NetWilHud
+## Membre : Teddy, William
+## Projet :  Mini Netflix
+
+```
+git clone https://github.com/TeddySbot/NetWilHud.git
+
+cd NetWilHud
+
+npm install
+
+npm start
+```
+
+
+
+
+
+
+______________
+_______
+_____
+_____
+____
+_____
+____
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
