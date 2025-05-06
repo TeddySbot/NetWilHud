@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
-import Page2 from './pages/Page2';
+import Upload from './pages/Upload';
+import Register from './pages/Register';
 
 
 function App() {
@@ -8,12 +9,16 @@ function App() {
     <Router>
       <nav>
         <Link to="/">Accueil</Link>
-        <Link to="/page2">Page 2</Link>
+        <Link to="/upload">Upload</Link>
+        <p> </p>
+        <Link to="/register">Se connecter</Link>
       </nav>
       
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/page2" element={<Page2 />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/register" element={<Register />} />
+
       </Routes>
     </Router>
   );
