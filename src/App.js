@@ -1,11 +1,20 @@
-import Header from "./components/Header";
-import Ytb from "./components/Ytb";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Upload from './pages/Upload';
+import Register from './pages/Register';
+import NavBar from './components/Header'; // Assure-toi du bon chemin
 
-const App = () => {
-    return <div>
-        <Header />
-        <Ytb />
-    </div>;
-};
+function App() {
+  return (
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
