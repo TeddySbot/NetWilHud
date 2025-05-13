@@ -13,17 +13,23 @@
   <% } else if (videos.length === 0) { %>
     <p>Aucune vidéo disponible.</p>
   <% } else { %>
+        <div class="video">
     <% videos.forEach(video => { %>
+        <div class="separation">
       <div style="margin-bottom: 30px;">
         <video width="400" controls>
           <source src="/uploads/<%= video %>" type="video/mp4">
           Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
         <p><%= video %></p>
+        </div>
       </div>
     <% }) %>
+          </div>
+
   <% } %>
 
-  <a href="/">← Retour à l'accueil</a>
-</body>
+<button style="position: fixed; bottom: 20px; left: 20px;">
+  <a href="/" style="text-decoration: none; color: inherit;"> Retour upload vidéos.</a>
+</button></body>
 </html>
