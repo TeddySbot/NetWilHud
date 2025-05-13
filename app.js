@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const path = require("path"); // Importer le module path
 
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
@@ -25,6 +26,11 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Route pour servir la page de signup
+app.get("/signup", (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'signup.html')); // Chemin vers le fichier HTML
+});
 
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
