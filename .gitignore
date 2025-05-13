@@ -24,7 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Vidéo
-# .mp4
-# .mov
-# .avi
-# .mkv
+.mp4
+.mov
+.avi
+.mkv
