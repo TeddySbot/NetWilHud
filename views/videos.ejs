@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Vidéos uploadées</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- si tu as un fichier CSS dans /public -->
+</head>
+<body>
+  <h1>Vidéos Uploadées</h1>
+
+  <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } else if (videos.length === 0) { %>
+    <p>Aucune vidéo disponible.</p>
+  <% } else { %>
+    <% videos.forEach(video => { %>
+      <div style="margin-bottom: 30px;">
+        <video width="400" controls>
+          <source src="/uploads/<%= video %>" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture de vidéos.
+        </video>
+        <p><%= video %></p>
+      </div>
+    <% }) %>
+  <% } %>
+
+  <a href="/">← Retour à l'accueil</a>
+</body>
+</html>

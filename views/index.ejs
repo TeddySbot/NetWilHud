@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload de Vidéo</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Uploader une vidéo</h1>
+    
+    <% if (typeof error !== 'undefined') { %>
+      <div class="alert error"><%= error %></div>
+    <% } %>
+    
+    <% if (typeof success !== 'undefined') { %>
+      <div class="alert success"><%= success %></div>
+      <% if (filename) { %>
+        <p>Nom du fichier: <%= filename %></p>
+      <% } %>
+    <% } %>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="videoFile">Sélectionnez une vidéo:</label>
+        <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
+      </div>
+      <button type="submit">Uploader</button>
+    </form>
+  </div>
+</body>
+</html>

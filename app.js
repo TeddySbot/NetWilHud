@@ -1,45 +1,80 @@
-require('dotenv').config();
-
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const path = require("path"); // Importer le module path
-
-const indexRouter = require("./routes/index");
-const authRouter = require("./routes/auth");
-
-const PORT = 8080;
-
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
 const app = express();
 
-// importing the mongoose module
-const mongoose = require("mongoose");
-// connecting to the database
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("MongoDB connection is established successfully! 🎉");
+
+// Configuration de Multer pour les uploads vidéo
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    const filetypes = /mp4|mov|avi|mkv/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (extname && mimetype) {
+      return cb(null, true);
+    } else {
+      cb('Error: Seules les vidéos sont acceptées !');
+    }
+  }
+}).single('videoFile');
+
+// Configuration de l'application
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+// Routes
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.post('/upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      return res.render('index', { error: err });
+    }
+    if (!req.file) {
+      return res.render('index', { error: 'Aucun fichier sélectionné' });
+    }
+
+    res.render('index', { 
+      success: 'Fichier uploadé avec succès !',
+      filename: req.file.filename
+    });
   });
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// Route pour servir la page de signup
-app.get("/signup", (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'signup.html')); 
 });
 
-app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'login.html')); 
+const fs = require('fs');
+
+app.get('/videos', (req, res) => {
+  const uploadsDir = path.join(__dirname, 'uploads');
+
+  fs.readdir(uploadsDir, (err, files) => {
+    if (err) {
+      return res.render('videos', { error: 'Impossible de lire les fichiers.', videos: [] });
+    }
+
+    const videoFiles = files.filter(file => /\.(mp4|mov|avi|mkv)$/i.test(file));
+    res.render('videos', { videos: videoFiles, error: null });
+  });
 });
 
-
-app.use("/", indexRouter);
-app.use("/auth", authRouter);
-
-app.listen(PORT, function () {
-  console.log(`🚀 Listening on port ${PORT}`);
+// Démarrer le serveur
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
