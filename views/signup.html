@@ -8,34 +8,79 @@
 <body>
     <h1>Créer un compte</h1>
     <form id="signup-form">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">S'inscrire</button>
-    </form>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  
+  <div>
+    <label for="password">Mot de passe:</label>
+    <input type="password" id="password" name="password" required minlength="3">
+  </div>
+  
+  <div>
+    <label for="firstName">Prénom:</label>
+    <input type="text" id="firstName" name="firstName">
+  </div>
+  
+  <div>
+    <label for="lastName">Nom:</label>
+    <input type="text" id="lastName" name="lastName">
+  </div>
+  
+  <div>
+    <label for="age">Âge:</label>
+    <input type="number" id="age" name="age" min="0">
+  </div>
+  
+  <button type="submit">S'inscrire</button>
+</form>
 
+<a href="/login">Déjà un compte ? Se connecter</a>
     <div id="message"></div>
 
-    <script>
-        document.getElementById('signup-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+<script>
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            age: document.getElementById('age').value
+        };
 
-            const response = await fetch('/api/signup', {
+        const messageDiv = document.getElementById('message');
+        messageDiv.innerText = '';
+        messageDiv.className = '';
+
+        try {
+            const response = await fetch('/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify(formData)
             });
 
             const data = await response.json();
-            document.getElementById('message').innerText = data.message;
-        });
-    </script>
+            
+            messageDiv.innerText = data.message;
+            messageDiv.className = data.type;
+            
+            if (data.type === 'success') {
+                // Redirection vers la page de login après 1.5 secondes
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1500);
+            }
+        } catch (error) {
+            messageDiv.innerText = "Une erreur s'est produite lors de l'inscription.";
+            messageDiv.className = 'error';
+            console.error('Error:', error);
+        }
+    });
+</script>
 </body>
 </html>

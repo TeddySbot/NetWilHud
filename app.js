@@ -29,8 +29,13 @@ app.use(cookieParser());
 
 // Route pour servir la page de signup
 app.get("/signup", (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'signup.html')); // Chemin vers le fichier HTML
+    res.sendFile(path.join(__dirname, 'views', 'signup.html')); 
 });
+
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'login.html')); 
+});
+
 
 app.use("/", indexRouter);
 app.use("/auth", authRouter);

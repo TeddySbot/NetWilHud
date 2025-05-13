@@ -1,27 +1,32 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
 
-// defining the user schema
-const userSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
-    // specifies that the field is required
     required: true,
-    // specifies that the field is unique
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
-  verified: {
-    type: Boolean,
-    // specifies the default value of the field
-    default: false,
-  },
-  refreshtoken: {
+  // Ajoutez ici vos nouveaux champs
+  firstName: {
     type: String,
+    required: false // ou true si obligatoire
   },
+  lastName: {
+    type: String,
+    required: false
+  },
+  age: {
+    type: Number,
+    required: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-// exporting the user model
-module.exports = model("User", userSchema);
+module.exports = mongoose.model('User', UserSchema);
