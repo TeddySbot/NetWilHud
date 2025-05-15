@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Vidéos uploadées</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- si tu as un fichier CSS dans /public -->
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <%- include('components/header') %>
+  <%- include('components/header') %>
 
+  <main class="video-container">
+    
+    <div class="video-wrapper">
+      <video controls class="video-player">
+        <source src="/uploads/<%= filename %>" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture de cette vidéo.
+      </video>
+    </div>
 
-<h2>Lecture de : <%= filename %></h2>
-
-<video controls width="600">
-  <source src="/uploads/<%= filename %>" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de cette vidéo.
-</video>
-
-<button style="position: fixed; bottom: 20px; right: 20px;">
-  <a href="/videos" style="text-decoration: none; color: inherit;"> Retour à la liste</a>
-</button>
-
-
+    <a href="/videos" class="back-button">Retour à la liste</a>
+  </main>
 </body>
+</html>

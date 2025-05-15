@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Vidéos uploadées</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- si tu as un fichier CSS dans /public -->
+  <link rel="stylesheet" href="/styles.css"> 
 </head>
 <body>
-    <%- include('components/header') %>
+  <%- include('components/header') %>
 
   <h1>Vidéos Uploadées</h1>
 
@@ -15,27 +15,24 @@
   <% } else if (videos.length === 0) { %>
     <p>Aucune vidéo disponible.</p>
   <% } else { %>
-        <div class="video">
-    <% videos.forEach(video => { %>
-        <div class="separation">
-      <div style="margin-bottom: 30px;">
-        <video width="400" controls>
-          <source src="/uploads/<%= video %>" type="video/mp4">
-          Votre navigateur ne supporte pas la lecture de vidéos.
-        </video>
-<p>
-  <button>
-  <a href="/videos/<%= encodeURIComponent(video) %>" style="text-decoration: none; color: inherit;">     Voir uniquement cette vidéo
-</a>
-</button>
-</p>
-        </div>
-      </div>
-    <% }) %>
+    <div class="video">
+      <% videos.forEach(video => { %>
+        <div class="separation" style="margin-bottom: 30px;">
+          <video width="400" controls>
+            <source src="/uploads/<%= video %>" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos.
+          </video>
+          <p>
+            <div class="video-container">
+            <a href="/videos/<%= encodeURIComponent(video) %>" class="back-button">
+              Voir uniquement cette vidéo
+            </a>
           </div>
-
+          </p>
+        </div>
+      <% }) %>
+    </div>
   <% } %>
-
 
 </body>
 </html>
