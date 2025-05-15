@@ -20,29 +20,26 @@ Un projet de plateforme de streaming vidéo inspiré de Netflix, développé dan
 Directory structure:
 └── teddysbot-netwilhud/
     ├── README.md
+    ├── app.js
     ├── package.json
-    ├── backend/
-    │   ├── package-lock.json
-    │   ├── package.json
-    │   └── server.js
+    ├── config/
+    │   ├── express.config.js
+    │   └── multer.config.js
+    ├── controllers/
+    │   ├── upload.controller.js
+    │   └── video.controller.js
     ├── public/
-    │   ├── index.html
-    │   └── manifest.json
-    └── src/
-        ├── App.css
-        ├── App.js
-        ├── App.test.js
-        ├── index.css
-        ├── index.js
-        ├── reportWebVitals.js
-        ├── setupTests.js
-        ├── components/
-        │   ├── Header.jsx
-        │   └── Ytb.jsx
-        └── pages/
-            ├── Home.jsx
-            ├── Register.jsx
-            └── Upload.jsx
+    │   └── styles.css
+    ├── routes/
+    │   └── index.js
+    ├── uploads/
+    └── views/
+        ├── index.ejs
+        ├── video.ejs
+        ├── videos.ejs
+        └── components/
+            └── Header.ejs
+
 ```
 
 ## ⚙️ Installation
