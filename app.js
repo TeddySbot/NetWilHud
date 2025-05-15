@@ -1,7 +1,9 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const app = express();
+
 
 
 // Configuration de Multer pour les uploads vidéo
@@ -37,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
+
 // Routes
 app.get('/', (req, res) => {
   res.render('index');
@@ -58,8 +61,6 @@ app.post('/upload', (req, res) => {
   });
 });
 
-const fs = require('fs');
-
 app.get('/videos', (req, res) => {
   const uploadsDir = path.join(__dirname, 'uploads');
 
@@ -73,8 +74,20 @@ app.get('/videos', (req, res) => {
   });
 });
 
+app.get('/videos/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'uploads', filename);
+
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) return res.status(404).send("Vidéo non trouvée");
+    res.render('video', { filename });
+  });
+});
+
+
+
 // Démarrer le serveur
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

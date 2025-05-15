@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="/styles.css"> <!-- si tu as un fichier CSS dans /public -->
 </head>
 <body>
+    <%- include('components/header') %>
+
   <h1>Vidéos Uploadées</h1>
 
   <% if (error) { %>
@@ -21,7 +23,12 @@
           <source src="/uploads/<%= video %>" type="video/mp4">
           Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
-        <p><%= video %></p>
+<p>
+  <button>
+  <a href="/videos/<%= encodeURIComponent(video) %>" style="text-decoration: none; color: inherit;">     Voir uniquement cette vidéo
+</a>
+</button>
+</p>
         </div>
       </div>
     <% }) %>
@@ -29,7 +36,6 @@
 
   <% } %>
 
-<button style="position: fixed; bottom: 20px; left: 20px;">
-  <a href="/" style="text-decoration: none; color: inherit;"> Retour upload vidéos.</a>
-</button></body>
+
+</body>
 </html>
