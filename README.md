@@ -1,6 +1,5 @@
 # Mini Netflix - Projet Ynov
 
-![Netflix-like](https://via.placeholder.com/150x50?text=Mini+Netflix)
 
 Un projet de plateforme de streaming vidéo inspiré de Netflix, développé dans le cadre des projets Ynov.
 
@@ -61,12 +60,6 @@ npm run dev
 ## 🌐 Accès
 L'application sera disponible à l'adresse :  
 [http://localhost:3000](http://localhost:3000)
-
-## 🛠 Technologies utilisées
-- React.js
-- Node.js (backend)
-- HTML5/CSS3
-- JavaScript (ES6+)
 
 ## 📝 License
 Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
