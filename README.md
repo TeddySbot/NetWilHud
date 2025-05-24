@@ -60,6 +60,3 @@ npm run dev
 ## 🌐 Accès
 L'application sera disponible à l'adresse :  
 [http://localhost:3000](http://localhost:3000)
-
-## 📝 License
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
